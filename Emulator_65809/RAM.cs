@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Windows.Forms;
 using Addr = System.UInt32;
 
 namespace Emul809or
@@ -64,5 +66,30 @@ namespace Emul809or
                 data[i] = 0;
             }
         }
+
+        public RAM(string ramFile)
+        {
+            data = new byte[size];
+            for (int i = 0; i < size; i++)
+            {
+                data[i] = 0;
+            }
+            if (ramFile.Length > 0)
+            {
+                try
+                {
+                    FileStream fs = File.OpenRead(ramFile);
+                    for (int i = 0; i < size; i++)
+                    {
+                        data[i] = (byte)fs.ReadByte();
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Unable to load specified RAM file. Continuing...");
+                }
+            }
+        }
+
     }
 }

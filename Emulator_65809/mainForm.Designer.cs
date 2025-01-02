@@ -33,6 +33,10 @@
             label1 = new System.Windows.Forms.Label();
             openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             frame = new System.Windows.Forms.GroupBox();
+            labBank3 = new System.Windows.Forms.Label();
+            labBank2 = new System.Windows.Forms.Label();
+            labBank1 = new System.Windows.Forms.Label();
+            labBank0 = new System.Windows.Forms.Label();
             FrontPanelL_7 = new System.Windows.Forms.GroupBox();
             FrontPanelL_6 = new System.Windows.Forms.GroupBox();
             FrontPanelL_5 = new System.Windows.Forms.GroupBox();
@@ -115,10 +119,7 @@
             mnuAdd1 = new System.Windows.Forms.ToolStripMenuItem();
             mnuDelete1 = new System.Windows.Forms.ToolStripMenuItem();
             labImages = new System.Windows.Forms.Label();
-            labBank0 = new System.Windows.Forms.Label();
-            labBank1 = new System.Windows.Forms.Label();
-            labBank2 = new System.Windows.Forms.Label();
-            labBank3 = new System.Windows.Forms.Label();
+            selectRamImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             frame.SuspendLayout();
             statusGroup.SuspendLayout();
             menuStrip1.SuspendLayout();
@@ -186,6 +187,46 @@
             frame.TabIndex = 10;
             frame.TabStop = false;
             frame.Text = "Front Panel";
+            // 
+            // labBank3
+            // 
+            labBank3.AutoSize = true;
+            labBank3.Location = new System.Drawing.Point(95, 86);
+            labBank3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            labBank3.Name = "labBank3";
+            labBank3.Size = new System.Drawing.Size(73, 15);
+            labBank3.TabIndex = 45;
+            labBank3.Text = "BANK3-0x00";
+            // 
+            // labBank2
+            // 
+            labBank2.AutoSize = true;
+            labBank2.Location = new System.Drawing.Point(95, 67);
+            labBank2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            labBank2.Name = "labBank2";
+            labBank2.Size = new System.Drawing.Size(73, 15);
+            labBank2.TabIndex = 44;
+            labBank2.Text = "BANK2-0x00";
+            // 
+            // labBank1
+            // 
+            labBank1.AutoSize = true;
+            labBank1.Location = new System.Drawing.Point(3, 86);
+            labBank1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            labBank1.Name = "labBank1";
+            labBank1.Size = new System.Drawing.Size(73, 15);
+            labBank1.TabIndex = 43;
+            labBank1.Text = "BANK1-0x00";
+            // 
+            // labBank0
+            // 
+            labBank0.AutoSize = true;
+            labBank0.Location = new System.Drawing.Point(3, 67);
+            labBank0.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            labBank0.Name = "labBank0";
+            labBank0.Size = new System.Drawing.Size(73, 15);
+            labBank0.TabIndex = 42;
+            labBank0.Text = "BANK0-0x00";
             // 
             // FrontPanelL_7
             // 
@@ -705,13 +746,11 @@
             // reloadToolStripMenuItem
             // 
             reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
-            reloadToolStripMenuItem.Size = new System.Drawing.Size(55, 22);
-            reloadToolStripMenuItem.Text = "Re&load";
-            reloadToolStripMenuItem.Click += reloadToolStripMenuItem_Click;
+            reloadToolStripMenuItem.Size = new System.Drawing.Size(12, 22);
             // 
             // openRomToolStripMenuItem
             // 
-            openRomToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { selectRomImageToolStripMenuItem, toolStripSeparator1, selectDisk1ImageToolStripMenuItem, selectDisk2ImageToolStripMenuItem });
+            openRomToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { selectRomImageToolStripMenuItem, selectRamImageToolStripMenuItem, toolStripSeparator1, selectDisk1ImageToolStripMenuItem, selectDisk2ImageToolStripMenuItem });
             openRomToolStripMenuItem.Name = "openRomToolStripMenuItem";
             openRomToolStripMenuItem.Size = new System.Drawing.Size(78, 22);
             openRomToolStripMenuItem.Text = "&Open ROM";
@@ -719,26 +758,26 @@
             // selectRomImageToolStripMenuItem
             // 
             selectRomImageToolStripMenuItem.Name = "selectRomImageToolStripMenuItem";
-            selectRomImageToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            selectRomImageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             selectRomImageToolStripMenuItem.Text = "Select Rom Image";
             selectRomImageToolStripMenuItem.Click += selectRomImageToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(172, 6);
+            toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // selectDisk1ImageToolStripMenuItem
             // 
             selectDisk1ImageToolStripMenuItem.Name = "selectDisk1ImageToolStripMenuItem";
-            selectDisk1ImageToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            selectDisk1ImageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             selectDisk1ImageToolStripMenuItem.Text = "Select Disk 1 Image";
             selectDisk1ImageToolStripMenuItem.Click += selectDisk1ImageToolStripMenuItem_Click;
             // 
             // selectDisk2ImageToolStripMenuItem
             // 
             selectDisk2ImageToolStripMenuItem.Name = "selectDisk2ImageToolStripMenuItem";
-            selectDisk2ImageToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            selectDisk2ImageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             selectDisk2ImageToolStripMenuItem.Text = "Select Disk 2 Image";
             selectDisk2ImageToolStripMenuItem.Click += selectDisk2ImageToolStripMenuItem_Click;
             // 
@@ -973,45 +1012,12 @@
             labImages.TabIndex = 41;
             labImages.Text = "DRIVE:";
             // 
-            // labBank0
+            // selectRamImageToolStripMenuItem
             // 
-            labBank0.AutoSize = true;
-            labBank0.Location = new System.Drawing.Point(3, 67);
-            labBank0.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            labBank0.Name = "labBank0";
-            labBank0.Size = new System.Drawing.Size(73, 15);
-            labBank0.TabIndex = 42;
-            labBank0.Text = "BANK0-0x00";
-            // 
-            // labBank1
-            // 
-            labBank1.AutoSize = true;
-            labBank1.Location = new System.Drawing.Point(3, 86);
-            labBank1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            labBank1.Name = "labBank1";
-            labBank1.Size = new System.Drawing.Size(73, 15);
-            labBank1.TabIndex = 43;
-            labBank1.Text = "BANK1-0x00";
-            // 
-            // labBank2
-            // 
-            labBank2.AutoSize = true;
-            labBank2.Location = new System.Drawing.Point(95, 67);
-            labBank2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            labBank2.Name = "labBank2";
-            labBank2.Size = new System.Drawing.Size(73, 15);
-            labBank2.TabIndex = 44;
-            labBank2.Text = "BANK2-0x00";
-            // 
-            // labBank3
-            // 
-            labBank3.AutoSize = true;
-            labBank3.Location = new System.Drawing.Point(95, 86);
-            labBank3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            labBank3.Name = "labBank3";
-            labBank3.Size = new System.Drawing.Size(73, 15);
-            labBank3.TabIndex = 45;
-            labBank3.Text = "BANK3-0x00";
+            selectRamImageToolStripMenuItem.Name = "selectRamImageToolStripMenuItem";
+            selectRamImageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            selectRamImageToolStripMenuItem.Text = "Select Ram Image";
+            selectRamImageToolStripMenuItem.Click += selectRamImageToolStripMenuItem_Click;
             // 
             // mainForm
             // 
@@ -1148,6 +1154,7 @@
         private System.Windows.Forms.Label labBank2;
         private System.Windows.Forms.Label labBank1;
         private System.Windows.Forms.Label labBank0;
+        private System.Windows.Forms.ToolStripMenuItem selectRamImageToolStripMenuItem;
     }
 }
 

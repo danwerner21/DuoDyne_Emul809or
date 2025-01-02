@@ -13,6 +13,7 @@ namespace Emul809or
         CPU cpu;
 
         string ROMlocation;
+        string RAMlocation;
         string Image1location;
         string Image2location;
 
@@ -53,6 +54,11 @@ namespace Emul809or
                 if (keyROM != null)
                 {
                     ROMlocation = keyROM.GetValue("MRU_ROM").ToString();
+                    try
+                    {
+                        RAMlocation = keyROM.GetValue("MRU_RAM").ToString();
+                    }
+                    catch { }
                     Image1location = (keyROM.GetValue("MRU_IMAGE1") ?? "").ToString();
                     Image2location = (keyROM.GetValue("MRU_IMAGE2") ?? "").ToString();
                     if (Image1location == Image2location) Image2location = "";
@@ -90,6 +96,33 @@ namespace Emul809or
                     RegistryKey keyROM = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Emul809or");
                     keyROM.SetValue("MRU_ROM", openFileDialog1.FileName);
                     keyROM.Close();
+                }
+                else
+                {
+                    //do something...
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void GetRAM()
+        {
+            try
+            {
+                openFileDialog1.Filter = "bin files (*.bin)|*.bin";
+                openFileDialog1.FileName = "";
+                openFileDialog1.Title = "RAM Image";
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    ROMlocation = openFileDialog1.FileName;
+                    currentROMLabel.Text = ROMlocation;
+                    //store for next open
+                    RegistryKey keyRAM = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Emul809or");
+                    keyRAM.SetValue("MRU_RAM", openFileDialog1.FileName);
+                    keyRAM.Close();
                 }
                 else
                 {
@@ -225,7 +258,7 @@ namespace Emul809or
             {
                 currentROMLabel.Text = ROMlocation;
                 WriteLog("Initializing...\n");
-                ram = new RAM();
+                ram = new RAM(RAMlocation);
                 ram.WatchEvent += Ram_WatchEvent;
                 WriteLog("RAM added\t\t\t0x000000-0x007FFF\n");
                 rom = new ROM(ROMlocation);
@@ -249,6 +282,7 @@ namespace Emul809or
                 cpu.StatusChanged += cpu_StatusChanged;
                 cpu.LogTextUpdate += cpu_LogTextUpdate;
                 cpu.Break += Cpu_Break;
+                WriteLog("*** G1000 TO BOOT CUBIX\n");
             }
             catch (Exception ex)
             {
@@ -258,10 +292,10 @@ namespace Emul809or
 
         private void Uart1_UARTOutChanged(object sender, UARTOutChangedEventArgs e)
         {
-            if(e.ModemChanged)
+            if (e.ModemChanged)
             {
                 frontPanel.PageEnable = false;
-                if((uart1.ModemControl & 0x04)==0) frontPanel.PageEnable = true;
+                if ((uart1.ModemControl & 0x04) == 0) frontPanel.PageEnable = true;
             }
         }
 
@@ -301,7 +335,7 @@ namespace Emul809or
             labBank2.Text = "BANK2-" + frontPanel.BANK2.ToString("X2");
             labBank3.Text = "BANK3-" + frontPanel.BANK3.ToString("X2");
 
-            if(e.Reset) cpu.Reset();
+            if (e.Reset) cpu.Reset();
         }
 
         private void Cpu_Break(object sender, BreakEventArgs e)
@@ -363,7 +397,7 @@ namespace Emul809or
 
         private void cpu_LogTextUpdate(object sender, LogTextUpdateEventArgs e)
         {
-            WriteLog(e.NewText+"\n");
+            WriteLog(e.NewText + "\n");
         }
 
         private void cpu_StatusChanged(object sender, StatusChangedEventArgs e)
@@ -500,12 +534,6 @@ namespace Emul809or
         }
 
 
-        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReloadForm();
-        }
-
-
         private void selectRomImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GetROM();
@@ -548,7 +576,7 @@ namespace Emul809or
             var x = lstBreakpoints.SelectedIndex;
             try
             {
-                cpu.Breakpoints.Remove(cpu.Breakpoints[x]);
+                cpu.BreakpointAddress.Remove(cpu.BreakpointAddress[x]);
             }
             catch { }
             RefreshBreakpoints();
@@ -663,6 +691,11 @@ namespace Emul809or
             RefreshWatches();
         }
 
-
+        private void selectRamImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GetRAM();
+            ram = new RAM(RAMlocation);
+            WriteLog("RAM added\t\t\t0x000000-0x007FFF\n");
+        }
     }
 }
