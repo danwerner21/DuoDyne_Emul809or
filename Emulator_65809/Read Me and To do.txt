@@ -1,0 +1,15 @@
+﻿to go to DOS/65 
+G 8800
+
+
+To do:
+-Only enable interrupts if IER flag is set appropriately. Need general improvements to interrupt support.
+-Exception handling
+-Lots of safety code
+	-When moving mouse out of bounds
+	-When typing / printing chars out of bounds
+
+
+Issues:
+-(tentatively RESOLVED): CPX doesn't appear to be setting Carry flag properly. Likely same with CMP and CPX.
+-In the middle of raising interrupts. Currently, it's off a bit. I'm likely accidentally writing to unintended registers due to 16-bit.
